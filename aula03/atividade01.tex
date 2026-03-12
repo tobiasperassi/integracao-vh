@@ -1,0 +1,369 @@
+\documentclass[12pt,a4paper]{article}
+
+% Pacotes de codificação e linguagem
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{csquotes}
+
+% Pacotes de formatação
+\usepackage[margin=2.5cm,top=3cm,bottom=2cm]{geometry}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{titlesec}
+
+% Pacotes gráficos e cores
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{colortbl}
+\usepackage{array}
+
+% Pacotes para links e referências
+\usepackage[pdftex]{hyperref}
+\usepackage{abntex2cite}
+
+% Configuração de cores para links
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=blue,
+    citecolor=blue,
+    pdftitle={Sistema de Automação para Fábrica de Tijolos Sustentáveis},
+    pdfauthor={Felipe Marques},
+    pdfsubject={Redes Industriais - Projeto Prático},
+}
+
+% Configuração dos títulos das seções
+\titleformat{\section}
+  {\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% Espaçamento entre linhas
+\onehalfspacing
+
+% Início do documento
+\begin{document}
+
+% Capa
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+
+    {\Huge\bfseries Projeto de Rede Industrial\par}
+    \vspace{0.5cm}
+    {\LARGE\bfseries Automação para Produção Sustentável\par}
+    \vspace{1cm}
+    {\Large Fábrica de Tijolos Ecológicos EcoBrick\par}
+
+    \vspace{2cm}
+
+    \begin{flushleft}
+        \textbf{Disciplina:} Fundamentos de Redes Industriais\\
+        \textbf{Professor:} Me. Deivison S. Takatu\\
+        \textbf{Data:} Março de 2026
+    \end{flushleft}
+
+    \vspace{2cm}
+
+    \begin{flushright}
+        \textbf{Aluno:} Felipe Marques\\
+        \textbf{Curso:} Análise e Desenvolvimento de Sistemas\\
+        \textbf{Instituição:} SENAI
+    \end{flushright}
+
+    \vfill
+
+\end{titlepage}
+
+% Sumário
+\tableofcontents
+\newpage
+
+\section{Introdução e Objetivos}
+
+Este documento apresenta um anteprojeto técnico e financeiro para a modernização da infraestrutura de uma indústria de tijolos ecológicos, focada na implementação de uma rede industrial confiável e escalável. O principal objetivo é substituir a operação manual e isolada por um sistema automatizado integrado, capaz de controlar as variáveis do processo em tempo real e fornecer dados estratégicos para a gestão.
+
+A iniciativa visa não apenas o aumento da produtividade, mas também a garantia da qualidade do produto e a sustentabilidade do negócio, através da redução do consumo de recursos naturais e energia, alinhando-se perfeitamente aos conceitos modernos de automação industrial.
+
+\section{Caracterização do Ambiente Industrial}
+
+\subsection{Descrição do Processo Produtivo}
+A unidade fabril em questão é especializada na produção de tijolos modulares de solo-cimento, um material ecológico que dispensa a queima em fornos. O processo é dividido em quatro etapas principais:
+\begin{enumerate}
+    \item \textbf{Preparação da Matéria-Prima:} Dosagem e mistura homogênea de solo, cimento e água.
+    \item \textbf{Prensagem Hidráulica:} A mistura é compactada em prensas hidráulicas para formar os tijolos.
+    \item \textbf{Cura Úmida:} Os tijolos são submetidos a um processo de irrigação controlada por aspersores para ganho de resistência.
+    \item \textbf{Secagem e Expedição:} Período de repouso em pátio coberto até o transporte.
+\end{enumerate}
+
+\subsection{Condições e Desafios Operacionais}
+A implementação de uma rede industrial neste ambiente exige a consideração de fatores críticos:
+\begin{itemize}
+    \item \textbf{Ambiente Agressivo:} Presença constante de poeira fina (solo seco) e alta umidade (setor de cura).
+    \item \textbf{Interferência Eletromagnética:} Operação de prensas com motores de alta potência, que geram ruído elétrico significativo.
+    \item \textbf{Necessidade de Sincronismo:} A linha de produção requer que as etapas sejam executadas de forma coordenada para evitar gargalos.
+    \item \textbf{Monitoramento Remoto:} A área de secagem é extensa e necessita de supervisão à distância.
+\end{itemize}
+
+\section{Especificação Técnica e Orçamentária}
+
+Para atender aos requisitos de robustez e confiabilidade, foi realizado um levantamento de mercado com foco em equipamentos com classificação industrial.
+
+\subsection{Unidades de Controle (CLPs)}
+Adotou-se uma arquitetura de controle distribuído, com CLPs dedicados para cada etapa do processo, comunicando-se via protocolo industrial.
+
+\begin{longtable}{@{}p{3.5cm}|p{5cm}|c|c@{}}
+\caption{Relação de Controladores Lógicos Programáveis} \\
+\toprule
+\textbf{Modelo / Fabricante} & \textbf{Características Técnicas} & \textbf{Qtd.} & \textbf{Valor Unit. (R\$)} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Modelo / Fabricante} & \textbf{Características Técnicas} & \textbf{Qtd.} & \textbf{Valor Unit. (R\$)} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+WEG TPW04 & CLP compacto, 24 entradas digitais, 16 saídas a transistor, 2 entradas analógicas, comunicação CANopen e Ethernet. & 4 & 3.200,00 \\
+\midrule
+WEG TPW04 & Módulo de Expansão de Entradas Analógicas (4-20mA), 8 canais. & 3 & 950,00 \\
+\midrule
+WEG TPW04 & Módulo de Expansão de Saídas Digitais, 16 canais. & 2 & 720,00 \\
+\bottomrule
+\end{longtable}
+\textbf{Justificativa:} A linha TPW04 da WEG foi escolhida por sua ampla disponibilidade no mercado nacional, suporte técnico local e robustez, sendo ideal para o ambiente fabril brasileiro.
+
+\subsection{Infraestrutura de Comutação (Switches)}
+A topologia de rede em anel foi escolhida para garantir alta disponibilidade, utilizando switches gerenciáveis.
+
+\begin{longtable}{@{}p{3.5cm}|p{5cm}|c|c@{}}
+\caption{Switches Industriais para Ambiente de Chão de Fábrica} \\
+\toprule
+\textbf{Modelo / Fabricante} & \textbf{Características Técnicas} & \textbf{Qtd.} & \textbf{Valor Unit. (R\$)} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Modelo / Fabricante} & \textbf{Características Técnicas} & \textbf{Qtd.} & \textbf{Valor Unit. (R\$)} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Hirschmann (Belden) & Switch gerenciável, 8 portas RJ45 10/100, 2 portas combo SFP, redundância de anel (MRP), alimentação 24Vcc, grau de proteção IP30. & 5 & 3.100,00 \\
+\midrule
+Hirschmann (Belden) & Módulo SFP para fibra multimodo, distância até 2km. & 10 & 380,00 \\
+\bottomrule
+\end{longtable}
+\textbf{Justificativa:} Switches gerenciáveis Hirschmann são referência em redes industriais críticas, oferecendo recursos de redundância (MRP) que garantem o funcionamento da rede mesmo em caso de falha de um cabo ou equipamento.
+
+\subsection{Instrumentação (Sensores e Atuadores)}
+Os dispositivos de campo são responsáveis pela coleta de dados e execução das ações mecânicas.
+
+\begin{longtable}{@{}p{3.5cm}|p{5cm}|c|c@{}}
+\caption{Dispositivos de Campo} \\
+\toprule
+\textbf{Tipo / Fabricante} & \textbf{Características Técnicas} & \textbf{Qtd.} & \textbf{Valor Unit. (R\$)} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Tipo / Fabricante} & \textbf{Características Técnicas} & \textbf{Qtd.} & \textbf{Valor Unit. (R\$)} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Sensor Umidade/Solo & Sonda de umidade para materiais granulares, saída 4-20mA, corpo em aço inox, IP68. & 8 & 1.150,00 \\
+\midrule
+Transmissor Pressão (Novus) & Faixa 0-200 bar, saída 4-20mA, para sistema hidráulico da prensa, IP66. & 5 & 620,00 \\
+\midrule
+Sensor Indutivo (IFM) & Chave indutiva M18, alcance 8mm, PNP, para fim de curso de cilindros, IP67. & 30 & 180,00 \\
+\midrule
+Válvula Solenoide (ASCO) & Válvula direcional 5/2 vias, 24Vcc, para comando de cilindros pneumáticos. & 15 & 290,00 \\
+\bottomrule
+\end{longtable}
+
+\subsection{Supervisão e Controle (IHM/SCADA)}
+Para a interface com o operador e supervisão geral da planta.
+
+\begin{longtable}{@{}p{3.5cm}|p{5cm}|c|c@{}}
+\caption{Equipamentos de Supervisão} \\
+\toprule
+\textbf{Modelo / Fabricante} & \textbf{Características Técnicas} & \textbf{Qtd.} & \textbf{Valor Unit. (R\$)} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Modelo / Fabricante} & \textbf{Características Técnicas} & \textbf{Qtd.} & \textbf{Valor Unit. (R\$)} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+IHM Delta & Tela touch de 7", resolução 800x480, 2 portas Ethernet, IP65. & 4 & 2.800,00 \\
+\midrule
+Elipse Software & Elipse SCADA Professional, 2500 tags, driver para CLPs WEG, cliente web incluso. & 1 & 15.900,00 \\
+\bottomrule
+\end{longtable}
+
+\subsection{Materiais de Rede e Infraestrutura}
+
+\begin{longtable}{@{}p{3.5cm}|p{5cm}|c|c@{}}
+\caption{Materiais para Infraestrutura de Rede} \\
+\toprule
+\textbf{Item} & \textbf{Especificações Técnicas} & \textbf{Qtd.} & \textbf{Valor Total (R\$)} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Item} & \textbf{Especificações Técnicas} & \textbf{Qtd.} & \textbf{Valor Total (R\$)} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Cabo de Rede & Cabo Flexível Industrial, SF/UTP, Cat6, antichama, rolo com 305m. & 3 & 1.890,00 (por rolo) \\
+\midrule
+Cabo de Fibra Óptica & Cabo para externo, armado, 4 fibras multimodo OM3, metro. & 500 & 7,50 (por metro) \\
+\midrule
+Conector RJ45 & Conector RJ45 metálico, próprio para cabo flexível, blindado. & 150 & 18,00 (unidade) \\
+\midrule
+Painel Metálico & Painel de aço com visor, 19", 12U, com ventilação e filtro, IP55. & 2 & 1.400,00 \\
+\bottomrule
+\end{longtable}
+
+\subsection{Resumo do Investimento}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}p{6cm}>{\raggedleft\arraybackslash}p{4cm}>{\raggedleft\arraybackslash}p{3cm}@{}}
+\toprule
+\textbf{Categoria} & \textbf{Valor Total (R\$)} & \textbf{(\%)} \\
+\midrule
+Controladores (CLPs e Módulos) & 16.430,00 & 15,3\% \\
+\midrule
+Switches e Módulos & 19.300,00 & 17,9\% \\
+\midrule
+Instrumentação (Sensores/Atuadores) & 22.390,00 & 20,8\% \\
+\midrule
+Supervisão (IHM/SCADA) & 27.100,00 & 25,2\% \\
+\midrule
+Infraestrutura e Cabeados & 22.560,00 & 20,8\% \\
+\midrule
+\textbf{TOTAL GERAL} & \textbf{R\$ 107.780,00} & \textbf{100\%} \\
+\bottomrule
+\end{tabular}
+\caption{Resumo do orçamento consolidado do projeto.}
+\end{table}
+
+\section{Avaliação de Adequação e Expansibilidade}
+
+\subsection{Conformidade Técnica com o Ambiente}
+A seleção dos equipamentos considerou a severidade do ambiente fabril:
+\begin{itemize}
+    \item \textbf{Proteção Mecânica:} Todos os componentes de campo possuem grau de proteção mínimo IP65/67, garantindo estanqueidade contra poeira e jatos d'água.
+    \item \textbf{Imunidade a Ruídos:} Utilização de cabos blindados (SF/UTP) e conectores metálicos para garantir a integridade dos dados próximo a motores e prensas.
+    \item \textbf{Redundância:} A topologia em anel com protocolo MRP assegura que a comunicação seja restabelecida em milissegundos em caso de rompimento de um cabo.
+\end{itemize}
+
+\subsection{Perspectivas de Crescimento}
+A solução foi planejada para absorver futuras demandas sem a necessidade de substituição de equipamentos principais:
+\begin{itemize}
+    \item \textbf{Escalabilidade da Rede:} Os switches possuem portas SFP livres, permitindo a expansão da rede para novas áreas ou edifícios utilizando fibra óptica.
+    \item \textbf{Capacidade dos CLPs:} Os controladores WEG TPW04 possuem slots para expansão, podendo receber novos módulos de I/O para a adição de sensores.
+    \item \textbf{Integração com o Nível Corporativo:} O software Elipse SCADA possui drivers OPC UA e conectores SQL nativos, facilitando a futura exportação de dados de produção (OEE, refugo, consumo) para o sistema ERP da empresa, viabilizando a Indústria 4.0.
+\end{itemize}
+
+\section{Estudo de Viabilidade e Análise de Riscos}
+
+\subsection{Análise de Custo-Benefício}
+A automação trará ganhos quantificáveis em diversas frentes, conforme análise preliminar:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}p{5cm}p{5cm}>{\raggedleft\arraybackslash}p{3cm}@{}}
+\toprule
+\textbf{Indicador de Melhoria} & \textbf{Descrição} & \textbf{Redução/Ganho Anual (R\$)} \\
+\midrule
+Redução de Perdas & Controle preciso da umidade na cura, diminuindo trincas e quebras. & 35.000,00 \\
+\midrule
+Eficiência Energética & Desligamento automático de prensas e bombas em horários de inatividade. & 12.000,00 \\
+\midrule
+Aumento de Produtividade & Redução do tempo de setup entre lotes e operação contínua otimizada. & 60.000,00 \\
+\midrule
+\textbf{Benefício Total Estimado} & \multicolumn{2}{r}{\textbf{R\$ 107.000,00}} \\
+\bottomrule
+\end{tabular}
+\caption{Projeção de benefícios financeiros anuais.}
+\end{table}
+
+\subsection{Retorno sobre o Investimento (ROI)}
+Com base nos benefícios projetados e no investimento total:
+\begin{itemize}
+    \item \textbf{Investimento Total:} R\$ 107.780,00
+    \item \textbf{Benefício Líquido Anual Projetado:} R\$ 107.000,00
+    \item \textbf{Payback Simples:} Aproximadamente 12 meses.
+    \item \textbf{ROI (Ano 1):} 99,3\%
+\end{itemize}
+
+\subsection{Análise de Riscos}
+A implementação de um projeto desta natureza envolve riscos que precisam ser gerenciados.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}p{3.5cm}p{2.5cm}p{2.5cm}p{4.5cm}@{}}
+\toprule
+\textbf{Risco Identificado} & \textbf{Probabilidade} & \textbf{Impacto} & \textbf{Plano de Ação/Mitigação} \\
+\midrule
+Atraso na importação de componentes & Média & Alto & Priorizar fornecedores nacionais (WEG, Delta) e manter estoque mínimo de peças críticas. \\
+\midrule
+Interferência na rede PROFINET & Média & Médio & Seguir rigorosamente as normas de instalação (aterramento, separação de cabos) e utilizar equipamentos certificados. \\
+\midrule
+Resistência da equipe operacional & Alta & Baixo & Realizar treinamentos hands-on com a equipe de manutenção e operadores antes do go-live. \\
+\bottomrule
+\end{tabular}
+\caption{Matriz de riscos e estratégias de mitigação.}
+\end{table}
+
+\section{Arquitetura da Solução Proposta}
+
+\subsection{Topologia Lógica e Física}
+A arquitetura proposta segue o modelo de pirâmide de automação, segregando os níveis de campo, controle e supervisão.
+
+\begin{enumerate}
+    \item \textbf{Nível de Campo (Dispositivos):} Sensores de umidade/pressão e válvulas solenoides conectados diretamente aos CLPs via cabos elétricos (4-20mA e 24Vcc).
+    \item \textbf{Nível de Controle (PLC):} Quatro CLPs WEG TPW04 distribuídos estrategicamente (um para dosagem, dois para prensagem, um para cura). Eles se comunicam entre si via rede PROFINET em anel.
+    \item \textbf{Nível de Supervisão (SCADA/IHM):}
+        \begin{itemize}
+            \item Um servidor com Elipse SCADA coleta dados de todos os CLPs para monitoramento central, geração de relatórios históricos e alarmes.
+            \item Quatro IHMs Delta instaladas em pontos-chave (prensa, expedição, etc.) permitem a operação local da máquina.
+        \end{itemize}
+    \item \textbf{Conexão Corporativa:} Um switch de borda (firewall) separa a rede industrial (192.168.1.x) da rede corporativa (10.0.0.x), garantindo segurança. Futuramente, um gateway OPC UA fará a ponte de dados entre o SCADA e o ERP.
+\end{enumerate}
+
+\subsection{Representação Visual (Descrição do Diagrama)}
+O diagrama proposto ilustra uma topologia em estrela estendida. No centro, um switch industrial Hirschmann faz o papel de "core" da rede industrial. Conectados a ele, em anel, estão os switches distribuídos nos três painéis elétricos da fábrica. Cada um desses switches conecta os CLPs e IHMs locais. O servidor SCADA está conectado diretamente ao switch core, assim como o firewall que faz a ponte com o restante da empresa. As linhas pontilhadas representam o backbone de fibra óptica entre os painéis, garantindo alta velocidade e imunidade a ruídos.
+
+\section{Conclusão e Recomendações}
+A análise realizada confirma a viabilidade técnica e econômica da implantação de uma rede industrial na fábrica de tijolos ecológicos. A proposta não apenas resolve os desafios atuais de controle e monitoramento, mas também estabelece uma base sólida para a transformação digital da empresa.
+
+O investimento de R\$ 107.780,00 apresenta um retorno atraente, com payback em torno de 12 meses, impulsionado pela redução de perdas e ganhos de eficiência. Recomenda-se a adoção da arquitetura proposta, priorizando a contratação de mão de obra especializada para a instalação e configuração, garantindo que os rigorosos padrões de redes industriais sejam atendidos e o sistema opere com o máximo de determinismo e confiabilidade.
+
+\begin{thebibliography}{9}
+
+\bibitem{weg} WEG Equipamentos Elétricos S.A. \textit{Manual do Programador CLP TPW04}. Disponível em: \url{https://www.weg.net}. Acesso em: 10 mar. 2026.
+
+\bibitem{belden} Belden Inc. \textit{Hirschmann Industrial Ethernet Switches Datasheet}. Disponível em: \url{https://www.belden.com}. Acesso em: 10 mar. 2026.
+
+\bibitem{elipse} Elipse Software. \textit{Manual do Usuário Elipse SCADA}. Disponível em: \url{https://www.elipse.com.br}. Acesso em: 11 mar. 2026.
+
+\bibitem{lara} LARA, Carla Eduarda Orlando de Moraes de. \textit{Automação e controle industrial}. Curitiba: Contentus, 2021.
+
+\bibitem{lugli} LUGLI, Alexandre Baratella; SANTOS, Max Mauro Dias. \textit{Sistemas Fieldbus para automação industrial}. São Paulo: Érica, 2009.
+
+\bibitem{moraes} MORAES, Cícero Couto de; CASTRUCCI, Plinio de Lauro. \textit{Engenharia de automação industrial}. São Paulo: LTC, 2007.
+
+\bibitem{takatu} TAKATU, Deivison S. \textit{Fundamentos de Redes Industriais}. Material didático, SENAI, 2026.
+
+\end{thebibliography}
+
+\end{document}
